@@ -77,7 +77,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         guard let placeholder = placeholder, let font = placeholderFont ?? font else {
             return
         }
-        let color = isEnabled ? placeholderColor : disabledColor
+        let color = placeholderColor //isEnabled ? placeholderColor : disabledColor
         #if swift(>=4.2)
             attributedPlaceholder = NSAttributedString(
                 string: placeholder,
@@ -205,11 +205,12 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     The default implementation converts the text to uppercase.
     */
     open var titleFormatter: ((String) -> String) = { (text: String) -> String in
-        if #available(iOS 9.0, *) {
-            return text.localizedUppercase
-        } else {
-            return text.uppercased()
-        }
+//        if #available(iOS 9.0, *) {
+//            return text.localizedUppercase
+//        } else {
+//            return text.uppercased()
+//        }
+        return text
     }
 
     /**
@@ -442,11 +443,11 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         }
 
         if !isEnabled {
-            lineView.backgroundColor = disabledColor
+            lineView.backgroundColor = .clear //editingOrSelected ? selectedLineColor : lineColor
         } else if hasErrorMessage {
             lineView.backgroundColor = lineErrorColor ?? errorColor
         } else {
-            lineView.backgroundColor = editingOrSelected ? selectedLineColor : lineColor
+            lineView.backgroundColor = editingOrSelected ? .clear : .clear
         }
     }
 
@@ -456,7 +457,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         }
 
         if !isEnabled {
-            titleLabel.textColor = disabledColor
+            titleLabel.textColor = titleColor //editingOrSelected ? selectedLineColor : titleColor
         } else if hasErrorMessage {
             titleLabel.textColor = titleErrorColor ?? errorColor
         } else {
